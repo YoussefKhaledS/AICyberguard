@@ -1,5 +1,7 @@
 from flask import Flask, render_template, request, redirect, url_for
-import os
+import os , sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from models.PEclassification import classify_pe_file
 
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = 'uploads'  # Folder to save uploaded files
@@ -36,11 +38,17 @@ def upload():
                 app.config['UPLOAD_FOLDER'], file.filename)
             print(f"Saving file to: {file_path}")
             file.save(file_path)
-            message = f"File '{file.filename}' uploaded successfully!"
+            
+            # Classify the uploaded file
+            result = classify_pe_file(file_path)
+            print(result)
+            # Redirect to the result page with classification details
+            # return redirect(url_for('result', result=result))
         else:
             message = "Invalid file type. Please upload a .exe or .dll file."
 
     return render_template('upload.html', message=message)
+
 
 
 if __name__ == '__main__':

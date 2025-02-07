@@ -1,3 +1,6 @@
+import time
+import json
+import os
 import numpy as np
 import tensorflow as tf
 from tensorflow.keras.models import load_model
@@ -41,8 +44,7 @@ class_index = {
 # Reverse the class index for label lookup
 index_to_class = {v: k for k, v in class_index.items()}
 
-# Functions from the PE_to_img.ipynb file
-
+# %% image approach
 
 def pe2hex(file_path):
     pe = pefile.PE(file_path)
@@ -100,6 +102,6 @@ def classify_pe_file(file_path):
     except Exception as e:
         return {'error': str(e)}
 
-# Example usage
-result = classify_pe_file('C:\\Users\\youssef khaled\\Desktop\\GP\\dataSets\\DikeDataset\\benign\\iosifache DikeDataset main files-benign\\0a8deb24eef193e13c691190758c349776eab1cd65fba7b5dae77c7ee9fcc906.exe')
-print(result)
+
+# %% secuential approach
+# Load the saved model
