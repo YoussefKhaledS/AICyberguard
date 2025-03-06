@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload PE File</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<body>
+    <header>
+        <div class="logo">Logo</div>
+        <nav>
+            <a href="/">Home Page</a>
+            <a href="#">About Us</a>
+            <a href="#">Contact Us</a>
+            <a href="#">More Info &#9660;</a>
+        </nav>
+        <a class="upload-button" href="/upload">Upload</a>
+    </header>
+    <div class="upload-container">
+        <h1>Upload PE File</h1>
+        <p>Please upload a Portable Executable (PE) file for analysis.</p>
+        
+        <!-- Upload Form -->
+        <form action="{{ url_for('upload') }}" method="POST" enctype="multipart/form-data">
+            <div class="file-input">
+                <label for="file">Choose a file:</label>
+                <input type="file" id="file" name="file" accept=".exe,.dll" required>
+            </div>
+            <button type="submit" class="upload-button">Upload</button>
+        </form>
+
+        <!-- Display Messages -->
+        {% if message %}
+            <div class="message error">
+                {{ message }}
+            </div>
+        {% endif %}
+    </div>
+</body>
+</html>
