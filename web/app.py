@@ -47,12 +47,14 @@ def upload():
             # Classify the uploaded file
             result = classify_pe_file(file_path)
             print(result)
+            
             # Redirect to the result page with classification details
-            # return redirect(url_for('result', result=result))
+            return render_template('result.html', result=result)
         else:
             message = "Invalid file type. Please upload a .exe or .dll file."
 
     return render_template('upload.html', message=message)
+
 
 
 @app.route('/sign-up', methods=['GET', 'POST'])
